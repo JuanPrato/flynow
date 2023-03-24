@@ -1,21 +1,18 @@
 package com.flycorp.fly.service;
 
 import com.flycorp.fly.FlyRepository;
-import com.flycorp.fly.PlaceRepository;
 import com.flycorp.fly.dto.FlyDto;
 import com.flycorp.fly.dto.PlaceDto;
 import com.flycorp.fly.dto.RequestCreateFlyDto;
 import com.flycorp.fly.entities.Fly;
-import com.flycorp.fly.entities.Place;
 import com.flycorp.fly.mapper.PlaceMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public record FlyService(FlyRepository flyRepository, PlaceRepository placeRepository) {
+public record FlyService(FlyRepository flyRepository) {
 
     public List<FlyDto> getFliesByQuery(String query) {
 
