@@ -13,7 +13,7 @@
   <url>http://127.0.0.1</url>
 
   <modules>
-    <module>search</module>
+    <module>fly</module>
   </modules>
 
   <properties>
