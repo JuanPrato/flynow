@@ -1,4 +1,4 @@
-package com.flycorp.fly.controller;
+package com.flycorp.fly;
 
 import com.flycorp.fly.dto.FlyDto;
 import com.flycorp.fly.dto.RequestCreateFlyDto;
