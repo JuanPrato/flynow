@@ -18,6 +18,7 @@
     <module>search</module>
     <module>eureka-server</module>
     <module>lib</module>
+    <module>gateway</module>
   </modules>
 
   <properties>
