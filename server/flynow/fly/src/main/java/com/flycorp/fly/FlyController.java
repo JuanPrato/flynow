@@ -1,26 +1,26 @@
 package com.flycorp.fly;
 
-import com.flycorp.fly.dto.FlyDto;
-import com.flycorp.fly.dto.RequestCreateFlyDto;
+import com.flycorp.lib.fly.RequestCreateFly;
 import com.flycorp.fly.service.FlyService;
+import com.flycorp.lib.fly.ResponseGetFlies;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/fly")
 public record FlyController(FlyService flyService) {
 
-    @GetMapping(value = { "/search", "/search/{query}" })
-    public List<FlyDto> search(@PathVariable(required = false) String query) {
+    @GetMapping(value = { "", "{query}" })
+    public ResponseGetFlies getFlies(@PathVariable(required = false) String query) {
         log.info("search request with query {}", query);
-        return flyService.getFliesByQuery(query);
+        ResponseGetFlies response = new ResponseGetFlies();
+        response.setFlies(flyService.getFliesByQuery(query));
+        return response;
     }
 
     @PostMapping()
-    public Integer saveFly(@RequestBody RequestCreateFlyDto requestCreateFly) {
+    public Integer saveFly(@RequestBody RequestCreateFly requestCreateFly) {
         return flyService.createNewFly(requestCreateFly);
     }
 

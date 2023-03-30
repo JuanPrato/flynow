@@ -11,8 +11,8 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class Fly {
+@Entity(name = "fly")
+public class FlyEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,10 +20,10 @@ public class Fly {
 
 
     @OneToOne(cascade = CascadeType.ALL)
-    private Place from;
+    private PlaceEntity from;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private Place to;
+    private PlaceEntity to;
 
     private Float price;
 }

@@ -12,8 +12,8 @@ import java.util.Calendar;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class Place {
+@Entity(name = "place")
+public class PlaceEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +24,6 @@ public class Place {
     private Calendar time;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private Fly fly;
+    private FlyEntity flyEntity;
 
 }
