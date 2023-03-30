@@ -18,7 +18,6 @@ public class FlyEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-
     @OneToOne(cascade = CascadeType.ALL)
     private PlaceEntity from;
 
