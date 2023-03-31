@@ -19,7 +19,8 @@ public class SecurityService {
 
     public Integer save(User userDto) {
         Optional<UserEntity> user = userRepository.findByUserName(userDto.getUserName());
-        if (user.isEmpty()) {
+        if (user.isPresent()) {
+            //TODO: Throw userName already exists exception
             return null;
         }
 
@@ -44,7 +45,12 @@ public class SecurityService {
             return null;
         }
 
-        return Token.builder().token(jwtProvider.createToken(user.get())).build();
+        return Token
+                .builder()
+                .token(
+                    jwtProvider.createToken(user.get())
+                )
+                .build();
     }
 
     public Token validate(String token) {

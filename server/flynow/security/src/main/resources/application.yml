@@ -17,7 +17,7 @@ spring:
     show-sql: true
 
 jwt:
-  secret: secret
+  secret: secretaosidjasoijdaosjidasdasdfddsfsdfsdfsfsdfsdfsdfsdf
 
 eureka:
   client:
