@@ -7,6 +7,7 @@ import org.springframework.http.*;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -15,11 +16,11 @@ import java.util.Objects;
 @Component
 public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> {
 
-    private final RestTemplate restTemplate;
+    private final WebClient webClient;
 
-    public AuthFilter(RestTemplate restTemplate) {
+    public AuthFilter(WebClient.Builder webClientBuilder) {
         super(Config.class);
-        this.restTemplate = restTemplate;
+        this.webClient = webClientBuilder.build();
     }
 
     public static class Config {
@@ -39,17 +40,18 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
                 return onError(exchange, HttpStatus.UNAUTHORIZED);
             }
 
-            Token token = restTemplate.getForObject(
-                    "http://SECURITY/api/v1/security/validate?token={token}",
-                    Token.class,
-                    chunks[1]
-            );
+            return webClient
+                    .get()
+                    .uri("http://SECURITY/api/v1/security/validate?token={token}", chunks[1])
+                    .retrieve()
+                    .bodyToMono(Token.class)
+                    .map(t -> {
+                        if (t == null || t.getToken() == null) {
+                            throw new RuntimeException();
+                        }
+                        return exchange;
+                    }).flatMap(chain::filter);
 
-            if (token == null || token.getToken() == null) {
-                return onError(exchange, HttpStatus.UNAUTHORIZED);
-            }
-
-            return chain.filter(exchange);
         }));
     }
 
