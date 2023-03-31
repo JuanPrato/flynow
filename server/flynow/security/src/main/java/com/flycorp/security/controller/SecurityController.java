@@ -28,7 +28,7 @@ public class SecurityController {
         return ResponseEntity.ok(token);
     }
 
-    @GetMapping
+    @GetMapping("validate")
     public ResponseEntity<Token> validate(@RequestParam String token) {
         Token tokenDto = service.validate(token);
 

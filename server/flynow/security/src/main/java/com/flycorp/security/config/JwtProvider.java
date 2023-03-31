@@ -2,16 +2,11 @@ package com.flycorp.security.config;
 
 import com.flycorp.security.UserEntity;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.crypto.spec.SecretKeySpec;
-import java.security.*;
-import java.security.spec.ECGenParameterSpec;
-import java.security.spec.ECPublicKeySpec;
 import java.util.*;
 
 @Component
@@ -42,8 +37,6 @@ public class JwtProvider {
 
     public boolean validate(String token) {
 
-        //Key secretKey = new SecretKeySpec(secret.getBytes(), "ES256");
-
         try {
             Jwts
                 .parserBuilder()
@@ -57,8 +50,6 @@ public class JwtProvider {
     }
 
     public String getUserNameFromToken(String token) {
-
-        //Key secretKey = new SecretKeySpec(secret.getBytes(), "ES256");
 
         try {
             return Jwts
