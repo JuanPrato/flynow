@@ -14,6 +14,8 @@ spring:
           uri: lb://fly
           predicates:
             - Path=/api/*/fly/**
+          filters:
+            - AuthFilter
         - id: search
           uri: lb://search
           predicates:
@@ -21,7 +23,7 @@ spring:
         - id: security
           uri: lb://security
           predicates:
-            - Path=/api/*/security/**,/api/*/user/**
+            - Path=/api/*/security/**, /api/*/user/**
 
 
 eureka:
