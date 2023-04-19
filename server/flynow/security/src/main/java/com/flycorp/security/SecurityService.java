@@ -56,13 +56,13 @@ public class SecurityService {
     public Token validate(String token) {
 
         if (!jwtProvider.validate(token)) {
-            return null;
+            return Token.builder().token(null).build();
         }
 
         String userName = jwtProvider.getUserNameFromToken(token);
 
         if (userRepository.findByUserName(userName).isEmpty()) {
-            return null;
+            return Token.builder().token(null).build();
         }
 
         return Token.builder().token(token).build();
