@@ -68,4 +68,8 @@ public class SecurityService {
         return Token.builder().token(token).build();
     }
 
+    public String getUserNameFromToken(String token) {
+        return jwtProvider.getUserNameFromToken(token);
+    }
+
 }
